@@ -1,7 +1,9 @@
 import { useEffect, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8082";
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  `${window.location.protocol}//${window.location.hostname}:8082`;
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
 
 interface ProductEvent {

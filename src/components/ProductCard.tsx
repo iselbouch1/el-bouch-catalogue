@@ -8,6 +8,12 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const coverImage = product.images.find((img) => img.isCover) || product.images[0];
+  const API_BASE_URL =
+    (import.meta.env.VITE_API_BASE_URL as string) ||
+    `${window.location.protocol}//${window.location.hostname}:8082`;
+  const imgSrc = coverImage?.url?.startsWith("/uploads/")
+    ? `${API_BASE_URL}${coverImage.url}`
+    : coverImage?.url;
 
   return (
     <Link
@@ -16,10 +22,13 @@ export function ProductCard({ product }: ProductCardProps) {
     >
       <div className="relative aspect-square overflow-hidden bg-secondary">
         <img
-          src={coverImage.url}
-          alt={coverImage.alt || product.name}
+          src={imgSrc || "/placeholder.svg"}
+          alt={coverImage?.alt || product.name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           loading="lazy"
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).src = "/placeholder.svg";
+          }}
         />
         {product.isFeatured && (
           <div className="absolute top-3 right-3">

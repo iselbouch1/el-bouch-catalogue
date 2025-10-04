@@ -12,6 +12,10 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
   const [isZoomed, setIsZoomed] = useState(false);
 
   const mainImage = images[selectedImage] || images[0];
+  const API_BASE_URL =
+    (import.meta.env.VITE_API_BASE_URL as string) ||
+    `${window.location.protocol}//${window.location.hostname}:8082`;
+  const toAbsolute = (u: string) => (u?.startsWith("/uploads/") ? `${API_BASE_URL}${u}` : u);
 
   return (
     <div className="space-y-4">
@@ -21,9 +25,12 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
         onClick={() => setIsZoomed(true)}
       >
         <img
-          src={mainImage.url}
+          src={toAbsolute(mainImage.url) || "/placeholder.svg"}
           alt={mainImage.alt || productName}
           className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).src = "/placeholder.svg";
+          }}
         />
       </div>
 
@@ -41,9 +48,12 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
               }`}
             >
               <img
-                src={image.url}
+                src={toAbsolute(image.url) || "/placeholder.svg"}
                 alt={image.alt || `${productName} ${index + 1}`}
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src = "/placeholder.svg";
+                }}
               />
             </button>
           ))}
@@ -54,9 +64,12 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
       <Dialog open={isZoomed} onOpenChange={setIsZoomed}>
         <DialogContent className="max-w-4xl p-0">
           <img
-            src={mainImage.url}
+            src={toAbsolute(mainImage.url) || "/placeholder.svg"}
             alt={mainImage.alt || productName}
             className="w-full h-auto"
+            onError={(e) => {
+              (e.currentTarget as HTMLImageElement).src = "/placeholder.svg";
+            }}
           />
         </DialogContent>
       </Dialog>
