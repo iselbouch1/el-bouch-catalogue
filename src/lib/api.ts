@@ -1,29 +1,9 @@
-import type { Category, Product, ApiResponse } from "@/types";
+import type { Category, Product } from "@/types";
 import categoriesData from "../../data/local/categories.json";
 import productsData from "../../data/local/products.json";
+import { supabase } from "@/integrations/supabase/client";
 
 const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ||
-  `${window.location.protocol}//${window.location.hostname}:8082`;
-
-/**
- * Generic fetch wrapper for API calls
- */
-async function fetchJson<T>(path: string, params?: URLSearchParams): Promise<ApiResponse<T>> {
-  const url = new URL(path, API_BASE_URL);
-  if (params) {
-    url.search = params.toString();
-  }
-
-  const response = await fetch(url.toString());
-  if (!response.ok) {
-    throw new Error(`API Error: ${response.status}`);
-  }
-
-  const data = await response.json();
-  return data;
-}
 
 /**
  * Filter products based on search parameters
@@ -98,8 +78,12 @@ export async function getCategories(): Promise<Category[]> {
     return categoriesData as Category[];
   }
 
-  const response = await fetchJson<Category[]>("/api/v1/categories");
-  return response.data;
+  const { data, error } = await supabase
+    .from("categories")
+    .select("id, name, slug, parent_id")
+    .order("name", { ascending: true });
+  if (error) throw error;
+  return (data || []).map((c) => ({ id: c.id, name: c.name, slug: c.slug, parentId: c.parent_id || undefined }));
 }
 
 /**
@@ -115,7 +99,7 @@ export async function getCategoryBySlug(slug: string): Promise<Category | null> 
  */
 export async function getProducts(params: {
   search?: string;
-  category?: string;
+  category?: string; // slug
   tags?: string[];
   visible?: boolean;
   featured?: boolean;
@@ -125,25 +109,65 @@ export async function getProducts(params: {
   if (USE_MOCK) {
     const filtered = filterProducts(productsData as Product[], params);
     const sorted = filtered.sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
-
-    if (params.page && params.perPage) {
-      return paginate(sorted, params.page, params.perPage);
-    }
-
+    if (params.page && params.perPage) return paginate(sorted, params.page, params.perPage);
     return { data: sorted, meta: { total: sorted.length } };
   }
 
-  const searchParams = new URLSearchParams();
-  if (params.search) searchParams.set("search", params.search);
-  if (params.category) searchParams.set("category", params.category);
-  if (params.tags) searchParams.set("tags", params.tags.join(","));
-  if (params.visible !== undefined) searchParams.set("visible", params.visible ? "1" : "0");
-  if (params.featured !== undefined) searchParams.set("featured", params.featured ? "1" : "0");
-  if (params.page) searchParams.set("page", params.page.toString());
-  if (params.perPage) searchParams.set("per_page", params.perPage.toString());
+  // Base select with relations
+  let query = supabase
+    .from("products")
+    .select(
+      "id, name, slug, short_description, description, is_visible, is_featured, sort_order, specs, product_images(id, url, alt, is_cover, sort_order), product_categories(category_id), product_tags(tag)"
+    )
+    .order("sort_order", { ascending: true });
 
-  const response = await fetchJson<Product[]>("/api/v1/products", searchParams);
-  return { data: response.data, meta: response.meta };
+  if (params.visible !== undefined) query = query.eq("is_visible", params.visible);
+  if (params.featured !== undefined) query = query.eq("is_featured", params.featured);
+
+  const { data, error } = await query;
+  if (error) throw error;
+
+  const categories = await getCategories();
+  const categoryId = params.category ? categories.find((c) => c.slug === params.category)?.id : undefined;
+
+  // Transform to frontend Product shape
+  const all = (data || []).map((p: any) => {
+    const images = (p.product_images || []).map((img: any) => ({
+      id: img.id,
+      url: img.url,
+      alt: img.alt || p.name,
+      isCover: img.is_cover || false,
+    }));
+    const categoryIds = (p.product_categories || []).map((pc: any) => pc.category_id);
+    const tags = (p.product_tags || []).map((t: any) => t.tag);
+    const prod: Product = {
+      id: p.id,
+      name: p.name,
+      slug: p.slug,
+      shortDescription: p.short_description || undefined,
+      description: p.description || undefined,
+      categoryIds,
+      tags,
+      isVisible: p.is_visible,
+      isFeatured: p.is_featured,
+      sortOrder: p.sort_order || 0,
+      images,
+      specs: p.specs || {},
+    };
+    return prod;
+  });
+
+  // Client-side filters for search, tags, category slug
+  let filtered = filterProducts(all, {
+    search: params.search,
+    tags: params.tags,
+    visible: params.visible,
+    featured: params.featured,
+    category: categoryId,
+  } as any);
+
+  if (params.page && params.perPage) return paginate(filtered, params.page, params.perPage);
+  return { data: filtered, meta: { total: filtered.length } };
 }
 
 /**
@@ -155,12 +179,19 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
     return products.find((p) => p.slug === slug) || null;
   }
 
-  try {
-    const response = await fetchJson<Product>(`/api/v1/products/${slug}`);
-    return response.data;
-  } catch (error) {
-    return null;
-  }
+  const { data, error } = await supabase
+    .from("products")
+    .select(
+      "id, name, slug, short_description, description, is_visible, is_featured, sort_order, specs, product_images(id, url, alt, is_cover, sort_order), product_categories(category_id), product_tags(tag)"
+    )
+    .eq("slug", slug)
+    .maybeSingle();
+  if (error || !data) return null;
+
+  const prodList = (
+    await getProducts({ visible: undefined })
+  ).data; // reuse mapping
+  return prodList.find((p) => p.slug === slug) || null;
 }
 
 /**
