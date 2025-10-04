@@ -11,9 +11,11 @@ export function ProductCard({ product }: ProductCardProps) {
   const API_BASE_URL =
     (import.meta.env.VITE_API_BASE_URL as string) ||
     `${window.location.protocol}//${window.location.hostname}:8082`;
-  const imgSrc = coverImage?.url?.startsWith("/uploads/")
-    ? `${API_BASE_URL}${coverImage.url}`
-    : coverImage?.url;
+  const toAbsolute = (u?: string) =>
+    u && (u.startsWith("/uploads/") || u.startsWith("/files/"))
+      ? `${API_BASE_URL}${u}`
+      : u;
+  const imgSrc = toAbsolute(coverImage?.url);
 
   return (
     <Link

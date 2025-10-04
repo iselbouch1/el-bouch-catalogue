@@ -15,7 +15,8 @@ export function ImageGallery({ images, productName }: ImageGalleryProps) {
   const API_BASE_URL =
     (import.meta.env.VITE_API_BASE_URL as string) ||
     `${window.location.protocol}//${window.location.hostname}:8082`;
-  const toAbsolute = (u: string) => (u?.startsWith("/uploads/") ? `${API_BASE_URL}${u}` : u);
+  const toAbsolute = (u: string) =>
+    u?.startsWith("/uploads/") || u?.startsWith("/files/") ? `${API_BASE_URL}${u}` : u;
 
   return (
     <div className="space-y-4">

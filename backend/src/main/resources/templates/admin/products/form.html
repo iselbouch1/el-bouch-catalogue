@@ -6,49 +6,49 @@
 <body>
 <section layout:fragment="content">
   <div class="page-header">
-    <h2 th:text="${dto.id} == null ? '✨ Nouveau produit' : '✏️ Éditer le produit'"></h2>
+    <h2 th:text="${dto == null or dto.id == null} ? '✨ Nouveau produit' : '✏️ Éditer le produit'"></h2>
     <a href="/admin/products" class="btn-outline">← Retour à la liste</a>
   </div>
   
-  <form class="form" method="post" th:action="${dto.id} == null ? @{/admin/products} : @{'/admin/products/' + ${dto.id}}">
-    <input type="hidden" name="id" th:value="${dto.id}" />
+  <form class="form" method="post" th:action="${dto == null or dto.id == null} ? @{/admin/products} : @{'/admin/products/' + ${dto.id}}">
+    <input type="hidden" name="id" th:value="${dto?.id}" />
     
     <h3 style="font-size: 18px; font-weight: 700; color: var(--gray-900); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 2px solid var(--gray-200);">📝 Informations générales</h3>
     
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
       <label>Nom du produit *
-        <input type="text" name="name" th:value="${dto.name}" placeholder="Ex: Housse de siège sport" required />
+        <input type="text" name="name" th:value="${dto?.name}" placeholder="Ex: Housse de siège sport" required />
       </label>
       
       <label>Slug (URL)
-        <input type="text" name="slug" th:value="${dto.slug}" placeholder="Généré automatiquement si vide" />
+        <input type="text" name="slug" th:value="${dto?.slug}" placeholder="Généré automatiquement si vide" />
       </label>
     </div>
     
     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
       <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-        <input type="checkbox" name="isVisible" th:checked="${dto.isVisible}" style="width: auto; margin: 0;" />
+        <input type="checkbox" name="isVisible" th:checked="${dto?.isVisible}" style="width: auto; margin: 0;" />
         <span>✅ Visible sur le site</span>
       </label>
       
       <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-        <input type="checkbox" name="isFeatured" th:checked="${dto.isFeatured}" style="width: auto; margin: 0;" />
+        <input type="checkbox" name="isFeatured" th:checked="${dto?.isFeatured}" style="width: auto; margin: 0;" />
         <span>⭐ Produit mis en avant</span>
       </label>
       
       <label>Ordre de tri
-        <input type="number" name="sortOrder" th:value="${dto.sortOrder}" placeholder="0" />
+        <input type="number" name="sortOrder" th:value="${dto?.sortOrder}" placeholder="0" />
       </label>
     </div>
     
     <h3 style="font-size: 18px; font-weight: 700; color: var(--gray-900); margin: 32px 0 24px 0; padding-bottom: 12px; border-bottom: 2px solid var(--gray-200);">📄 Descriptions</h3>
     
     <label>Résumé court (affiché dans les cartes produit)
-      <textarea name="shortDescription" th:text="${dto.shortDescription}" placeholder="Description courte et accrocheuse pour la liste des produits" rows="2"></textarea>
+      <textarea name="shortDescription" th:text="${dto?.shortDescription}" placeholder="Description courte et accrocheuse pour la liste des produits" rows="2"></textarea>
     </label>
     
     <label>Description complète (affichée sur la page produit)
-      <textarea name="description" th:text="${dto.description}" placeholder="Description détaillée du produit avec toutes les caractéristiques importantes" rows="5"></textarea>
+      <textarea name="description" th:text="${dto?.description}" placeholder="Description détaillée du produit avec toutes les caractéristiques importantes" rows="5"></textarea>
     </label>
     
     <h3 style="font-size: 18px; font-weight: 700; color: var(--gray-900); margin: 32px 0 24px 0; padding-bottom: 12px; border-bottom: 2px solid var(--gray-200);">🏷️ Classification</h3>
@@ -56,19 +56,19 @@
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
       <label>Catégories
         <select name="categoryIds" multiple size="6">
-          <option th:each="c : ${categories}" th:value="${c.id}" th:selected="${#lists.contains(dto.categoryIds, c.id.toString())}" th:text="${c.name}"></option>
+          <option th:each="c : ${categories}" th:value="${c.id}" th:selected="${dto != null and #lists.contains(dto.categoryIds, c.id.toString())}" th:text="${c.name}"></option>
         </select>
         <small style="color: var(--gray-500); font-size: 12px; margin-top: 4px; display: block;">Maintenez Ctrl (Cmd sur Mac) pour sélectionner plusieurs catégories</small>
       </label>
       
       <label>Tags (slugs séparés par virgules)
-        <input type="text" name="tags" th:value="${#strings.listJoin(dto.tags, ',')}" placeholder="led, sport, noir-mat" />
+        <input type="text" name="tags" th:value="${dto != null ? #strings.listJoin(dto.tags, ',') : ''}" placeholder="led, sport, noir-mat" />
         <small style="color: var(--gray-500); font-size: 12px; margin-top: 4px; display: block;">Exemple: led,sport,noir-mat</small>
       </label>
     </div>
     
     <label>Spécifications techniques (format JSON)
-      <textarea name="specs" th:text="${dto.specs}" placeholder='{"matiere":"cuir","couleur":"noir","poids":1.2}' rows="3"></textarea>
+      <textarea name="specs" th:text="${dto?.specs}" placeholder='{"matiere":"cuir","couleur":"noir","poids":1.2}' rows="3"></textarea>
       <small style="color: var(--gray-500); font-size: 12px; margin-top: 4px; display: block;">Format JSON: {"clé":"valeur","clé2":"valeur2"}</small>
     </label>
     
