@@ -16,6 +16,7 @@ public class SseService {
         SseEmitter emitter = new SseEmitter(0L);
         emitter.onCompletion(() -> emitters.remove(emitter));
         emitter.onTimeout(() -> emitters.remove(emitter));
+        emitter.onError((ex) -> emitters.remove(emitter));
         emitters.add(emitter);
         return emitter;
     }
@@ -24,8 +25,8 @@ public class SseService {
         for (SseEmitter emitter : emitters) {
             try {
                 emitter.send(SseEmitter.event().name("product").data(event));
-            } catch (IOException e) {
-                emitter.completeWithError(e);
+            } catch (Exception e) {
+                try { emitter.completeWithError(e); } catch (Exception ignored) {}
                 emitters.remove(emitter);
             }
         }

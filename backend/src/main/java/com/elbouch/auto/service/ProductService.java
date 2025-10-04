@@ -74,7 +74,10 @@ public class ProductService {
         apply(dto, p);
         ensureSingleCover(p);
         p = productRepository.save(p);
-        sseService.broadcast(new ProductEventDto("product.created", p.getId().toString(), p.getSlug(), System.currentTimeMillis()));
+        try {
+            sseService.broadcast(new ProductEventDto("product.created", p.getId().toString(), p.getSlug(), System.currentTimeMillis()));
+        } catch (Exception ignored) {}
+
         return p;
     }
     
@@ -82,7 +85,10 @@ public class ProductService {
     @CacheEvict(value = {"productBySlug", "categories"}, allEntries = true)
     public void broadcastImageUpdate(UUID productId) {
         productRepository.findById(productId).ifPresent(p -> {
-            sseService.broadcast(new ProductEventDto("image.updated", p.getId().toString(), p.getSlug(), System.currentTimeMillis()));
+            try {
+                sseService.broadcast(new ProductEventDto("image.updated", p.getId().toString(), p.getSlug(), System.currentTimeMillis()));
+            } catch (Exception ignored) {}
+
         });
     }
 
@@ -93,7 +99,10 @@ public class ProductService {
         apply(dto, p);
         ensureSingleCover(p);
         p = productRepository.save(p);
-        sseService.broadcast(new ProductEventDto("product.updated", p.getId().toString(), p.getSlug(), System.currentTimeMillis()));
+        try {
+            sseService.broadcast(new ProductEventDto("product.updated", p.getId().toString(), p.getSlug(), System.currentTimeMillis()));
+        } catch (Exception ignored) {}
+
         return p;
     }
 
@@ -102,7 +111,10 @@ public class ProductService {
     public void delete(UUID id) {
         productRepository.findById(id).ifPresent(p -> {
             productRepository.delete(p);
-            sseService.broadcast(new ProductEventDto("product.deleted", p.getId().toString(), p.getSlug(), System.currentTimeMillis()));
+            try {
+                sseService.broadcast(new ProductEventDto("product.deleted", p.getId().toString(), p.getSlug(), System.currentTimeMillis()));
+            } catch (Exception ignored) {}
+
         });
     }
 
