@@ -39,7 +39,7 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public Page<Product> search(String search, String categorySlug, String tagsCsv, Boolean visible, Boolean featured, int page, int perPage) {
-        Specification<Product> spec = Specification.where(null)
+        Specification<Product> spec = Specification.<Product>where(null)
                 .and(ProductSpecifications.search(search))
                 .and(ProductSpecifications.categorySlug(categorySlug))
                 .and(ProductSpecifications.tagsCsv(tagsCsv))

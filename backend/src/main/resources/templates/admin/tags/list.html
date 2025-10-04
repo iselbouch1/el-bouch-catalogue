@@ -5,9 +5,12 @@
 </head>
 <body>
 <section layout:fragment="content">
-  <h2>Tags</h2>
-  <a class="btn" th:href="@{/admin/tags/new}">Nouveau tag</a>
-  <table class="table">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+    <h2 style="margin: 0;">Tags</h2>
+    <a class="btn" th:href="@{/admin/tags/new}">➕ Nouveau tag</a>
+  </div>
+  <div class="table-wrapper">
+    <table class="table">
     <thead>
       <tr><th>Nom</th><th>Slug</th><th>Actions</th></tr>
     </thead>
@@ -24,6 +27,7 @@
       </tr>
     </tbody>
   </table>
+  </div>
 </section>
 </body>
 </html>

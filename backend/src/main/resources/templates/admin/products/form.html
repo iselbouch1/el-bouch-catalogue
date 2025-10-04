@@ -6,62 +6,93 @@
 <body>
 <section layout:fragment="content">
   <h2 th:text="${dto.id} == null ? 'Nouveau produit' : 'Éditer le produit'"></h2>
+  
   <form class="form" method="post" th:action="${dto.id} == null ? @{/admin/products} : @{'/admin/products/' + ${dto.id}}">
     <input type="hidden" name="id" th:value="${dto.id}" />
-    <label>Nom
-      <input type="text" name="name" th:value="${dto.name}" required />
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <label>Nom du produit *
+        <input type="text" name="name" th:value="${dto.name}" placeholder="Ex: Housse de siège sport" required />
+      </label>
+      
+      <label>Slug (URL)
+        <input type="text" name="slug" th:value="${dto.slug}" placeholder="Généré automatiquement si vide" />
+      </label>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+      <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+        <input type="checkbox" name="isVisible" th:checked="${dto.isVisible}" style="width: auto; margin: 0;" />
+        <span>✅ Visible sur le site</span>
+      </label>
+      
+      <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+        <input type="checkbox" name="isFeatured" th:checked="${dto.isFeatured}" style="width: auto; margin: 0;" />
+        <span>⭐ Produit mis en avant</span>
+      </label>
+      
+      <label>Ordre de tri
+        <input type="number" name="sortOrder" th:value="${dto.sortOrder}" placeholder="0" />
+      </label>
+    </div>
+    
+    <label>Résumé court
+      <textarea name="shortDescription" th:text="${dto.shortDescription}" placeholder="Description courte affichée dans la liste des produits" rows="2"></textarea>
     </label>
-    <label>Slug (optionnel)
-      <input type="text" name="slug" th:value="${dto.slug}" />
+    
+    <label>Description complète
+      <textarea name="description" th:text="${dto.description}" placeholder="Description détaillée du produit" rows="5"></textarea>
     </label>
-    <label>Visible
-      <input type="checkbox" name="isVisible" th:checked="${dto.isVisible}" />
-    </label>
-    <label>Mis en avant
-      <input type="checkbox" name="isFeatured" th:checked="${dto.isFeatured}" />
-    </label>
-    <label>Ordre de tri
-      <input type="number" name="sortOrder" th:value="${dto.sortOrder}" />
-    </label>
-    <label>Résumé
-      <textarea name="shortDescription" th:text="${dto.shortDescription}"></textarea>
-    </label>
-    <label>Description
-      <textarea name="description" th:text="${dto.description}"></textarea>
-    </label>
-    <label>Catégories
-      <select name="categoryIds" multiple>
-        <option th:each="c : ${categories}" th:value="${c.id}" th:selected="${#lists.contains(dto.categoryIds, c.id.toString())}" th:text="${c.name}"></option>
-      </select>
-    </label>
-    <label>Tags (slugs séparés par des virgules)
-      <input type="text" name="tags" th:value="${#strings.listJoin(dto.tags, ',')}" />
-    </label>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <label>Catégories
+        <select name="categoryIds" multiple size="6">
+          <option th:each="c : ${categories}" th:value="${c.id}" th:selected="${#lists.contains(dto.categoryIds, c.id.toString())}" th:text="${c.name}"></option>
+        </select>
+      </label>
+      
+      <label>Tags (slugs séparés par virgules)
+        <input type="text" name="tags" th:value="${#strings.listJoin(dto.tags, ',')}" placeholder="led, sport, noir-mat" />
+      </label>
+    </div>
+    
     <label>Spécifications (JSON)
-      <textarea name="specs" placeholder='{"matiere":"cuir"}'>
-        <span th:text="${#maps.size(dto.specs) > 0 ? dto.specs : '{\'matiere\':\'cuir\'}'}"></span>
-      </textarea>
+      <textarea name="specs" placeholder='{"matiere":"cuir","couleur":"noir","poids":1.2}' rows="3"><span th:text="${#maps.size(dto.specs) > 0 ? dto.specs : '{\'matiere\':\'cuir\'}'}"></span></textarea>
     </label>
-    <button type="submit">Enregistrer</button>
+    
+    <button type="submit" class="btn-success">💾 Enregistrer le produit</button>
   </form>
 
-  <div th:if="${product != null}">
-    <h3>Images</h3>
-    <form th:action="@{'/admin/products/' + ${product.id} + '/images'}" method="post" enctype="multipart/form-data">
-      <input type="file" name="file" required />
-      <label><input type="checkbox" name="cover" /> Définir comme cover</label>
-      <button type="submit">Uploader</button>
+  <div th:if="${product != null}" style="margin-top: 48px;">
+    <h3 style="font-size: 20px; margin-bottom: 16px;">📸 Gestion des images</h3>
+    
+    <form th:action="@{'/admin/products/' + ${product.id} + '/images'}" method="post" enctype="multipart/form-data" 
+          style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 24px;">
+      <div style="display: flex; gap: 12px; align-items: end; flex-wrap: wrap;">
+        <label style="flex: 1; min-width: 300px;">
+          Choisir une image
+          <input type="file" name="file" accept="image/*" required style="padding: 10px;" />
+        </label>
+        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; margin-bottom: 8px;">
+          <input type="checkbox" name="cover" style="width: auto; margin: 0;" />
+          <span>Définir comme image principale</span>
+        </label>
+        <button type="submit" class="btn">📤 Uploader</button>
+      </div>
     </form>
+    
     <div class="gallery">
       <div class="img-card" th:each="img : ${product.images}">
         <img th:src="${img.url}" th:alt="${img.alt}" />
-        <div>
-          <span th:text="${img.cover} ? 'Cover' : ''"></span>
-          <form th:action="@{'/admin/products/' + ${product.id} + '/images/' + ${img.id} + '/cover'}" method="post" style="display:inline">
-            <button type="submit">Cover</button>
+        <div style="margin-top: 8px;">
+          <span th:if="${img.cover}" style="display: inline-block; background: #10b981; color: white; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600;">⭐ IMAGE PRINCIPALE</span>
+        </div>
+        <div class="actions">
+          <form th:action="@{'/admin/products/' + ${product.id} + '/images/' + ${img.id} + '/cover'}" method="post" style="flex: 1;">
+            <button type="submit" style="background: #3b82f6; color: white; width: 100%;">Définir principale</button>
           </form>
-          <form th:action="@{'/admin/products/' + ${product.id} + '/images/' + ${img.id} + '/delete'}" method="post" style="display:inline">
-            <button type="submit" class="danger">Supprimer</button>
+          <form th:action="@{'/admin/products/' + ${product.id} + '/images/' + ${img.id} + '/delete'}" method="post" style="flex: 1;">
+            <button type="submit" class="danger" style="width: 100%;">🗑️ Supprimer</button>
           </form>
         </div>
       </div>

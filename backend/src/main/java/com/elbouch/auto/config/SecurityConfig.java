@@ -41,7 +41,7 @@ public class SecurityConfig {
             )
             .headers(h -> h
                 .httpStrictTransportSecurity(hsts -> hsts.includeSubDomains(true))
-                .xssProtection(x -> x.block(true))
+                .xssProtection(x -> x.headerValue("1; mode=block"))
                 .contentTypeOptions(Customizer.withDefaults())
                 .frameOptions(f -> f.sameOrigin())
             )

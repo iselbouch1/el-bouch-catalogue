@@ -5,9 +5,12 @@
 </head>
 <body>
 <section layout:fragment="content">
-  <h2>Produits</h2>
-  <a class="btn" th:href="@{/admin/products/new}">Nouveau produit</a>
-  <table class="table">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+    <h2 style="margin: 0;">Produits</h2>
+    <a class="btn" th:href="@{/admin/products/new}">➕ Nouveau produit</a>
+  </div>
+  <div class="table-wrapper">
+    <table class="table">
     <thead>
       <tr>
         <th>Nom</th>
@@ -30,6 +33,7 @@
       </tr>
     </tbody>
   </table>
+  </div>
 </section>
 </body>
 </html>

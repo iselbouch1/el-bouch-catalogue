@@ -3,20 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Connexion - Admin</title>
+  <title>Connexion - Admin EL Bouch Auto</title>
   <link rel="stylesheet" th:href="@{/admin.css}" />
 </head>
 <body class="login-page">
-  <form class="card" method="post" th:action="@{/admin/login}">
-    <h2>Connexion Admin</h2>
-    <label>Email
-      <input type="text" name="username" placeholder="Email" value="Elbouch@elbouch.com" />
-    </label>
-    <label>Mot de passe
-      <input type="password" name="password" placeholder="Mot de passe" value="Admin" />
-    </label>
-    <button type="submit">Se connecter</button>
-    <p class="hint">Email: <b>Elbouch@elbouch.com</b> / Mot de passe: <b>Admin</b></p>
-  </form>
+  <div class="login-card">
+    <h2>EL Bouch Auto</h2>
+    <p class="subtitle">Connexion administrateur</p>
+    <form method="post" th:action="@{/admin/login}">
+      <label>
+        Adresse email
+        <input type="text" name="username" placeholder="votre@email.com" value="Elbouch@elbouch.com" required />
+      </label>
+      <label>
+        Mot de passe
+        <input type="password" name="password" placeholder="••••••••" value="Admin" required />
+      </label>
+      <button type="submit">Se connecter</button>
+      <p class="hint">
+        Identifiants de test :<br/>
+        Email: <b>Elbouch@elbouch.com</b><br/>
+        Mot de passe: <b>Admin</b>
+      </p>
+    </form>
+  </div>
 </body>
 </html>

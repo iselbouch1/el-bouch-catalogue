@@ -84,4 +84,18 @@ public class DataLoader implements CommandLineRunner {
             p.setVisible(true);
             p.setFeatured(i % 5 == 0);
             p.setSortOrder(i);
-            p.setSpecsJson("{\"matiere\":\"cuir\",\"couleur\":\"noir\",\"poids\":
+            p.setSpecsJson("{\"matiere\":\"cuir\",\"couleur\":\"noir\",\"poids\":1.2}");
+            p.getCategories().add(categories.get(i % categories.size()));
+            p.getTags().add(tagEntities.get(i % tagEntities.size()));
+            
+            Image img = new Image();
+            img.setUrl("/files/sample-" + ((i % 2) + 1) + ".svg");
+            img.setAlt("Image produit " + i);
+            img.setCover(true);
+            img.setProduct(p);
+            p.getImages().add(img);
+            
+            productRepository.save(p);
+        }
+    }
+}
