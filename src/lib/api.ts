@@ -2,8 +2,8 @@ import type { Category, Product, ApiResponse } from "@/types";
 import categoriesData from "../../data/local/categories.json";
 import productsData from "../../data/local/products.json";
 
-const USE_MOCK = import.meta.env.VITE_USE_MOCK !== "false";
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8082";
 
 /**
  * Generic fetch wrapper for API calls
