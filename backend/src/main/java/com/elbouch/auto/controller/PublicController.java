@@ -20,7 +20,7 @@ public class PublicController {
     @GetMapping(value = {"/", "/shop"})
     public String shop(Model model) {
         Sort sort = Sort.by(Sort.Order.asc("sortOrder").nullsLast(), Sort.Order.desc("createdAt"));
-        var products = productRepository.findAllWithAll(
+        var products = productRepository.findAll(
             (root, query, cb) -> cb.equal(root.get("isVisible"), true),
             PageRequest.of(0, 50, sort)
         );
