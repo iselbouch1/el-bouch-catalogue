@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org" th:replace="admin/layout :: body">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layout}">
+<head>
+  <title>Tableau de bord</title>
+</head>
 <body>
-<section>
+<section layout:fragment="content">
   <h2>Tableau de bord</h2>
   <div class="grid">
     <div class="stat">Produits: <span th:text="${productsCount}">0</span></div>

@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org" th:replace="admin/layout :: body">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layout}">
+<head>
+  <title>Tags</title>
+</head>
 <body>
-<section>
+<section layout:fragment="content">
   <h2>Tags</h2>
   <a class="btn" th:href="@{/admin/tags/new}">Nouveau tag</a>
   <table class="table">

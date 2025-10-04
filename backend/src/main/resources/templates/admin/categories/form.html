@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org" th:replace="admin/layout :: body">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layout}">
+<head>
+  <title>Catégorie</title>
+</head>
 <body>
-<section>
+<section layout:fragment="content">
   <h2 th:text="${category.id} == null ? 'Nouvelle catégorie' : 'Éditer la catégorie'"></h2>
   <form class="form" method="post" th:action="${category.id} == null ? @{/admin/categories} : @{'/admin/categories/' + ${category.id}}">
     <label>Nom
