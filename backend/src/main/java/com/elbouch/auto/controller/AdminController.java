@@ -65,8 +65,12 @@ public class AdminController {
     }
 
     @PostMapping("/products")
-    public String createProduct(@ModelAttribute("dto") ProductDto dto, BindingResult br) {
-        if (br.hasErrors()) return "admin/products/form";
+    public String createProduct(@ModelAttribute("dto") ProductDto dto, BindingResult br, Model model) {
+        if (br.hasErrors()) {
+            model.addAttribute("categories", categoryRepository.findAll());
+            model.addAttribute("tags", tagRepository.findAll());
+            return "admin/products/form";
+        }
         Product p = productService.create(dto);
         return "redirect:/admin/products";
     }
@@ -83,8 +87,14 @@ public class AdminController {
     }
 
     @PostMapping("/products/{id}")
-    public String updateProduct(@PathVariable UUID id, @ModelAttribute("dto") ProductDto dto, BindingResult br) {
-        if (br.hasErrors()) return "admin/products/form";
+    public String updateProduct(@PathVariable UUID id, @ModelAttribute("dto") ProductDto dto, BindingResult br, Model model) {
+        if (br.hasErrors()) {
+            Product p = productRepository.findByIdWithAll(id).orElseThrow();
+            model.addAttribute("product", p);
+            model.addAttribute("categories", categoryRepository.findAll());
+            model.addAttribute("tags", tagRepository.findAll());
+            return "admin/products/form";
+        }
         productService.update(id, dto);
         return "redirect:/admin/products";
     }
