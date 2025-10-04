@@ -97,6 +97,14 @@ public class ProductService {
         sseService.broadcast(new ProductEventDto("product.created", p.getId().toString(), p.getSlug(), System.currentTimeMillis()));
         return p;
     }
+    
+    @Transactional
+    @CacheEvict(value = {"productBySlug", "categories"}, allEntries = true)
+    public void broadcastImageUpdate(UUID productId) {
+        productRepository.findById(productId).ifPresent(p -> {
+            sseService.broadcast(new ProductEventDto("image.updated", p.getId().toString(), p.getSlug(), System.currentTimeMillis()));
+        });
+    }
 
     @Transactional
     @CacheEvict(value = {"productBySlug", "categories"}, allEntries = true)

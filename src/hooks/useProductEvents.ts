@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8082";
-const USE_MOCK = import.meta.env.VITE_USE_MOCK !== "false";
+const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
 
 interface ProductEvent {
   type: "product.created" | "product.updated" | "product.deleted" | "image.updated";

@@ -3,7 +3,7 @@
 ## Architecture du projet
 
 Ce projet est composé de deux parties :
-- **Frontend React/Vite** (port 8081) : Vitrine publique des produits
+- **Frontend React/Vite** (port 8080) : Vitrine publique des produits
 - **Backend Spring Boot** (port 8082) : API REST + Admin Thymeleaf
 
 ## 🔧 Configuration
@@ -22,7 +22,7 @@ npm install
 npm run dev
 ```
 
-Le frontend sera accessible sur **http://localhost:8081**
+Le frontend sera accessible sur **http://localhost:8080**
 
 ### 2️⃣ Backend (Spring Boot)
 
@@ -42,7 +42,7 @@ Le frontend se connecte automatiquement au flux SSE du backend pour recevoir les
 
 1. Un administrateur modifie un produit dans l'admin (http://localhost:8082/admin)
 2. Le backend émet un événement SSE via `/api/v1/events/products`
-3. Le frontend (http://localhost:8081) reçoit l'événement et rafraîchit automatiquement les données
+3. Le frontend (http://localhost:8080) reçoit l'événement et rafraîchit automatiquement les données
 4. Les visiteurs voient les changements **instantanément** sans recharger la page
 
 **Types d'événements SSE :**
@@ -184,7 +184,7 @@ Fichiers :
 - Vérifiez que le backend est accessible
 
 ### Erreurs CORS
-- Vérifiez `CorsConfig.java` : `http://localhost:8081` doit être autorisé
+- Vérifiez `CorsConfig.java` : `http://localhost:8080` doit être autorisé
 - Redémarrez le backend après modification
 
 ## 📞 Support

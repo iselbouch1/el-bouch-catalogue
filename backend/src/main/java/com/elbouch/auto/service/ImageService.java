@@ -31,10 +31,16 @@ public class ImageService {
         String filename = UUID.randomUUID() + ext;
         Path target = uploadDir.resolve(filename);
         Files.copy(file.getInputStream(), target);
+        
+        // If setting as cover, unset all other covers for this product
+        if (cover) {
+            product.getImages().forEach(img -> img.setCover(false));
+        }
+        
         Image img = new Image();
         img.setProduct(product);
         img.setUrl("/files/" + filename);
-        img.setAlt(original);
+        img.setAlt(original != null ? original : "Product image");
         img.setCover(cover);
         return imageRepository.save(img);
     }

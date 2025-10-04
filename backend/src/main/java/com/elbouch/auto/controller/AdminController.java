@@ -97,11 +97,7 @@ public class AdminController {
     @PostMapping("/products/{id}/images")
     public String uploadImage(@PathVariable UUID id, @RequestParam("file") MultipartFile file, @RequestParam(name = "cover", defaultValue = "false") boolean cover) throws IOException {
         Product p = productRepository.findById(id).orElseThrow();
-        if (cover) {
-            for (Image img : p.getImages()) { img.setCover(false); }
-        }
         imageService.store(p, file, cover);
-        productRepository.save(p);
         return "redirect:/admin/products/" + id + "/edit";
     }
 
@@ -110,12 +106,14 @@ public class AdminController {
         Product p = productRepository.findById(id).orElseThrow();
         for (Image img : p.getImages()) { img.setCover(img.getId().equals(imageId)); }
         productRepository.save(p);
+        productService.broadcastImageUpdate(id);
         return "redirect:/admin/products/" + id + "/edit";
     }
 
     @PostMapping("/products/{id}/images/{imageId}/delete")
     public String deleteImage(@PathVariable UUID id, @PathVariable UUID imageId) {
         imageRepository.deleteById(imageId);
+        productService.broadcastImageUpdate(id);
         return "redirect:/admin/products/" + id + "/edit";
     }
 

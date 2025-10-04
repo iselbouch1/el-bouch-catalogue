@@ -57,7 +57,7 @@
     </div>
     
     <label>Spécifications (JSON)
-      <textarea name="specs" placeholder='{"matiere":"cuir","couleur":"noir","poids":1.2}' rows="3"><span th:text="${#maps.size(dto.specs) > 0 ? dto.specs : '{\'matiere\':\'cuir\'}'}"></span></textarea>
+      <textarea name="specs" th:text="${dto.specs != null && !dto.specs.isEmpty() ? dto.specs : ''}" placeholder='{"matiere":"cuir","couleur":"noir","poids":1.2}' rows="3"></textarea>
     </label>
     
     <button type="submit" class="btn-success">💾 Enregistrer le produit</button>
