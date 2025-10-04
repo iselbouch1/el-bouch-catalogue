@@ -47,7 +47,7 @@ public class ProductService {
                 .and(ProductSpecifications.featured(featured));
         Sort sort = Sort.by(Sort.Order.asc("sortOrder").nullsLast(), Sort.Order.desc("createdAt"));
         Pageable pageable = PageRequest.of(Math.max(page - 1, 0), Math.min(perPage, 50), sort);
-        return productRepository.findAllWithAll(spec, pageable);
+        return productRepository.findAll(spec, pageable);
     }
 
     @Cacheable(value = "productBySlug", key = "#slug")
@@ -63,7 +63,7 @@ public class ProductService {
         Specification<Product> spec = Specification.where(ProductSpecifications.tagsCsv(String.join(",", tagSlugs)))
                 .or(ProductSpecifications.categorySlug(catSlugs.stream().findFirst().orElse(null)))
                 .and((root, query, cb) -> cb.notEqual(root.get("id"), ref.getId()));
-        Page<Product> page = productRepository.findAllWithAll(spec, PageRequest.of(0, limit));
+        Page<Product> page = productRepository.findAll(spec, PageRequest.of(0, limit));
         return page.getContent();
     }
 
