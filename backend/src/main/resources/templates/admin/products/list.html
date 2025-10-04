@@ -5,34 +5,53 @@
 </head>
 <body>
 <section layout:fragment="content">
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-    <h2 style="margin: 0;">Produits</h2>
-    <a class="btn" th:href="@{/admin/products/new}">➕ Nouveau produit</a>
+  <div class="page-header">
+    <h1>📦 Produits</h1>
+    <div class="page-header-actions">
+      <a href="/admin/products/new" class="btn">➕ Nouveau produit</a>
+    </div>
   </div>
-  <div class="table-wrapper">
-    <table class="table">
-    <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Slug</th>
-        <th>Visible</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr th:each="p : ${products}">
-        <td th:text="${p.name}"></td>
-        <td th:text="${p.slug}"></td>
-        <td th:text="${p.visible}"></td>
-        <td>
-          <a th:href="@{'/admin/products/' + ${p.id} + '/edit'}">Éditer</a>
-          <form th:action="@{'/admin/products/' + ${p.id} + '/delete'}" method="post" style="display:inline">
-            <button type="submit" class="danger">Supprimer</button>
-          </form>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+
+  <div class="table-container">
+    <div class="table-header">
+      <h3>Liste des produits</h3>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Slug</th>
+          <th>Visible</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="p : ${products}">
+          <td>
+            <strong th:text="${p.name}">Product Name</strong>
+            <span th:if="${p.featured}" class="badge badge-warning" style="margin-left: 8px;">⭐ À LA UNE</span>
+          </td>
+          <td><code style="background: var(--gray-100); padding: 4px 8px; border-radius: 4px; font-size: 13px;" th:text="${p.slug}">slug</code></td>
+          <td>
+            <span th:if="${p.visible}" class="badge badge-success">✅ OUI</span>
+            <span th:unless="${p.visible}" class="badge badge-danger">❌ NON</span>
+          </td>
+          <td>
+            <a th:href="@{'/admin/products/' + ${p.id} + '/edit'}">✏️ Éditer</a>
+            <form th:action="@{'/admin/products/' + ${p.id} + '/delete'}" method="post" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?');">
+              <button type="submit" class="danger">🗑️ Supprimer</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div th:if="${products.isEmpty()}" class="empty-state" style="margin: 40px;">
+      <div class="empty-state-icon">📦</div>
+      <h3>Aucun produit</h3>
+      <p>Commencez par créer votre premier produit</p>
+      <a href="/admin/products/new" class="btn" style="margin-top: 20px;">➕ Créer un produit</a>
+    </div>
   </div>
 </section>
 </body>

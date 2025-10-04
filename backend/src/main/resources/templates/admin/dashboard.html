@@ -5,29 +5,74 @@
 </head>
 <body>
 <section layout:fragment="content">
-  <h2>Tableau de bord</h2>
-  <div class="grid">
-    <div class="stat">
-      <h3>Produits</h3>
-      <div class="value" th:text="${productsCount}">0</div>
+  <div class="page-header">
+    <h1>📊 Tableau de bord</h1>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-card-header">
+        <div>
+          <div class="stat-card-label">Produits</div>
+          <div class="stat-card-value" th:text="${productsCount}">0</div>
+        </div>
+        <div class="stat-card-icon primary">📦</div>
+      </div>
+      <div class="stat-card-link">
+        <a href="/admin/products">Voir tous les produits →</a>
+      </div>
     </div>
-    <div class="stat">
-      <h3>Catégories</h3>
-      <div class="value" th:text="${categoriesCount}">0</div>
+
+    <div class="stat-card">
+      <div class="stat-card-header">
+        <div>
+          <div class="stat-card-label">Catégories</div>
+          <div class="stat-card-value" th:text="${categoriesCount}">0</div>
+        </div>
+        <div class="stat-card-icon success">📁</div>
+      </div>
+      <div class="stat-card-link">
+        <a href="/admin/categories">Gérer les catégories →</a>
+      </div>
     </div>
-    <div class="stat">
-      <h3>Tags</h3>
-      <div class="value" th:text="${tagsCount}">0</div>
+
+    <div class="stat-card">
+      <div class="stat-card-header">
+        <div>
+          <div class="stat-card-label">Tags</div>
+          <div class="stat-card-value" th:text="${tagsCount}">0</div>
+        </div>
+        <div class="stat-card-icon warning">🏷️</div>
+      </div>
+      <div class="stat-card-link">
+        <a href="/admin/tags">Gérer les tags →</a>
+      </div>
     </div>
   </div>
-  
-  <div style="background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-top: 24px;">
-    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #111827;">Actions rapides</h3>
-    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-      <a class="btn" th:href="@{/admin/products/new}">➕ Nouveau produit</a>
-      <a class="btn" th:href="@{/admin/categories/new}">➕ Nouvelle catégorie</a>
-      <a class="btn" th:href="@{/admin/tags/new}">➕ Nouveau tag</a>
+
+  <div class="quick-actions">
+    <h3>⚡ Actions rapides</h3>
+    <div class="quick-actions-grid">
+      <a href="/admin/products/new" class="quick-action-btn">
+        <span>➕</span>
+        <span>Nouveau produit</span>
+      </a>
+      <a href="/admin/categories/new" class="quick-action-btn">
+        <span>📂</span>
+        <span>Nouvelle catégorie</span>
+      </a>
+      <a href="/admin/tags/new" class="quick-action-btn">
+        <span>🔖</span>
+        <span>Nouveau tag</span>
+      </a>
     </div>
+  </div>
+
+  <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px; border-radius: var(--radius-lg); color: white; box-shadow: var(--shadow-lg); margin-top: 40px;">
+    <h3 style="font-size: 24px; font-weight: 800; margin-bottom: 12px;">🚀 Mise à jour en temps réel</h3>
+    <p style="font-size: 16px; opacity: 0.95; margin-bottom: 0;">
+      Toutes les modifications effectuées ici sont automatiquement synchronisées avec le site visiteur en temps réel grâce à la technologie SSE (Server-Sent Events).
+    </p>
   </div>
 </section>
 </body>

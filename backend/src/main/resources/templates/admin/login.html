@@ -1,31 +1,51 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Connexion - Admin EL Bouch Auto</title>
-  <link rel="stylesheet" th:href="@{/admin.css}" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion Admin - El Bouch Auto</title>
+  <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
-<body class="login-page">
-  <div class="login-card">
-    <h2>EL Bouch Auto</h2>
-    <p class="subtitle">Connexion administrateur</p>
-    <form method="post" th:action="@{/admin/login}">
-      <label>
-        Adresse email
-        <input type="text" name="username" placeholder="votre@email.com" value="Elbouch@elbouch.com" required />
-      </label>
-      <label>
-        Mot de passe
-        <input type="password" name="password" placeholder="••••••••" value="Admin" required />
-      </label>
-      <button type="submit">Se connecter</button>
-      <p class="hint">
-        Identifiants de test :<br/>
-        Email: <b>Elbouch@elbouch.com</b><br/>
-        Mot de passe: <b>Admin</b>
+<body>
+  <div class="login-page">
+    <div class="login-card">
+      <div class="logo">
+        <div class="logo-icon">🚗</div>
+      </div>
+      
+      <h2>Admin El Bouch Auto</h2>
+      <p class="subtitle">Connectez-vous pour gérer votre catalogue</p>
+
+      <div th:if="${param.error}" class="error-message">
+        ❌ Identifiants incorrects. Veuillez réessayer.
+      </div>
+
+      <div th:if="${param.logout}" style="background: #d1fae5; color: #065f46; padding: 12px 16px; border-radius: var(--radius); margin-bottom: 20px; border-left: 4px solid #10b981; font-weight: 500;">
+        ✅ Vous avez été déconnecté avec succès.
+      </div>
+
+      <form th:action="@{/admin/login}" method="post">
+        <label>
+          Nom d'utilisateur
+          <input type="text" name="username" placeholder="Elbouch@elbouch.com" required autofocus />
+        </label>
+
+        <label>
+          Mot de passe
+          <input type="password" name="password" placeholder="Admin" required />
+        </label>
+
+        <button type="submit">🔐 Se connecter</button>
+      </form>
+
+      <p style="text-align: center; color: var(--gray-400); font-size: 12px; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--gray-200);">
+        💡 Identifiants par défaut : <strong>Elbouch@elbouch.com</strong> / <strong>Admin</strong>
       </p>
-    </form>
+
+      <p style="text-align: center; color: var(--gray-500); font-size: 13px; margin-top: 24px;">
+        © 2025 El Bouch Auto. Tous droits réservés.
+      </p>
+    </div>
   </div>
 </body>
 </html>
