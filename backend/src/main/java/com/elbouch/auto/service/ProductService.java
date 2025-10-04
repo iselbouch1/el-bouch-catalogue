@@ -37,6 +37,7 @@ public class ProductService {
         this.sseService = sseService;
     }
 
+    @Transactional(readOnly = true)
     public Page<Product> search(String search, String categorySlug, String tagsCsv, Boolean visible, Boolean featured, int page, int perPage) {
         Specification<Product> spec = Specification.where(null)
                 .and(ProductSpecifications.search(search))
@@ -46,14 +47,30 @@ public class ProductService {
                 .and(ProductSpecifications.featured(featured));
         Sort sort = Sort.by(Sort.Order.asc("sortOrder").nullsLast(), Sort.Order.desc("createdAt"));
         Pageable pageable = PageRequest.of(Math.max(page - 1, 0), Math.min(perPage, 50), sort);
-        return productRepository.findAll(spec, pageable);
+        Page<Product> result = productRepository.findAll(spec, pageable);
+        // Force eager loading of collections
+        result.getContent().forEach(p -> {
+            p.getCategories().size();
+            p.getTags().size();
+            p.getImages().size();
+        });
+        return result;
     }
 
     @Cacheable(value = "productBySlug", key = "#slug")
+    @Transactional(readOnly = true)
     public Optional<Product> findBySlug(String slug) {
-        return productRepository.findBySlug(slug);
+        Optional<Product> product = productRepository.findBySlug(slug);
+        // Force eager loading of collections
+        product.ifPresent(p -> {
+            p.getCategories().size();
+            p.getTags().size();
+            p.getImages().size();
+        });
+        return product;
     }
 
+    @Transactional(readOnly = true)
     public List<Product> related(Product ref, int limit) {
         Set<String> tagSlugs = ref.getTags().stream().map(Tag::getSlug).collect(Collectors.toSet());
         Set<String> catSlugs = ref.getCategories().stream().map(Category::getSlug).collect(Collectors.toSet());
@@ -61,6 +78,12 @@ public class ProductService {
                 .or(ProductSpecifications.categorySlug(catSlugs.stream().findFirst().orElse(null)))
                 .and((root, query, cb) -> cb.notEqual(root.get("id"), ref.getId()));
         Page<Product> page = productRepository.findAll(spec, PageRequest.of(0, limit));
+        // Force eager loading of collections
+        page.getContent().forEach(p -> {
+            p.getCategories().size();
+            p.getTags().size();
+            p.getImages().size();
+        });
         return page.getContent();
     }
 

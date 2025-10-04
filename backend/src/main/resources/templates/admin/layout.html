@@ -17,7 +17,7 @@
   </nav>
 </header>
 <main class="container">
-  <div th:insert="~{::body}"></div>
+  <div layout:fragment="content"></div>
 </main>
 <script th:src="@{/admin.js}"></script>
 </body>
