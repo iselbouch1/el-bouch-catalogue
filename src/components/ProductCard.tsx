@@ -1,0 +1,56 @@
+import { Link } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
+import type { Product } from "@/types";
+
+interface ProductCardProps {
+  product: Product;
+}
+
+export function ProductCard({ product }: ProductCardProps) {
+  const coverImage = product.images.find((img) => img.isCover) || product.images[0];
+
+  return (
+    <Link
+      to={`/produits/${product.slug}`}
+      className="group block rounded-lg overflow-hidden bg-card shadow-card hover:shadow-hover transition-all duration-300 hover:-translate-y-1"
+    >
+      <div className="relative aspect-square overflow-hidden bg-secondary">
+        <img
+          src={coverImage.url}
+          alt={coverImage.alt || product.name}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          loading="lazy"
+        />
+        {product.isFeatured && (
+          <div className="absolute top-3 right-3">
+            <Badge className="bg-gradient-racing text-accent-foreground shadow-racing">
+              Nouveauté
+            </Badge>
+          </div>
+        )}
+      </div>
+
+      <div className="p-4">
+        <h3 className="font-semibold text-lg mb-2 line-clamp-2 group-hover:text-accent transition-colors">
+          {product.name}
+        </h3>
+
+        {product.shortDescription && (
+          <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+            {product.shortDescription}
+          </p>
+        )}
+
+        {product.tags && product.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5">
+            {product.tags.slice(0, 3).map((tag) => (
+              <Badge key={tag} variant="secondary" className="text-xs">
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        )}
+      </div>
+    </Link>
+  );
+}

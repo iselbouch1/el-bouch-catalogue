@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "name": "Éclairage",
+    "slug": "eclairage"
+  },
+  {
+    "id": "2",
+    "name": "Jantes & Enjoliveurs",
+    "slug": "jantes-enjoliveurs"
+  },
+  {
+    "id": "3",
+    "name": "Sièges & Housses",
+    "slug": "sieges-housses"
+  },
+  {
+    "id": "4",
+    "name": "Volants & Commandes",
+    "slug": "volants-commandes"
+  },
+  {
+    "id": "5",
+    "name": "Carrosserie & Stickers",
+    "slug": "carrosserie-stickers"
+  },
+  {
+    "id": "6",
+    "name": "Intérieur & Rangement",
+    "slug": "interieur-rangement"
+  }
+]

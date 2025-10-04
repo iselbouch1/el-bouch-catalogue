@@ -1,73 +1,173 @@
-# Welcome to your Lovable project
+# EL Bouch Auto - Catalogue d'Accessoires Automobiles
 
-## Project info
+Site vitrine/catalogue complet pour accessoires et décorations automobiles, sans système de panier ou paiement.
 
-**URL**: https://lovable.dev/projects/9c7e9c92-0595-4138-888b-dd1d3217ad9f
+## 🚀 Démarrage rapide
 
-## How can I edit this code?
+### Installation
 
-There are several ways of editing your application.
+```bash
+npm install
+```
 
-**Use Lovable**
+### Lancement en développement
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/9c7e9c92-0595-4138-888b-dd1d3217ad9f) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+L'application sera accessible sur `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Build de production
 
-**Use GitHub Codespaces**
+```bash
+npm run build
+npm run start
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 📁 Structure du projet
 
-## What technologies are used for this project?
+```
+/public
+  /images              # 24+ images de produits automobiles
+/data/local
+  categories.json      # 6 catégories de produits
+  products.json        # 23 produits avec specs complètes
+/src
+  /components          # Composants réutilisables
+    Header.tsx         # Navigation + recherche
+    Footer.tsx
+    ProductCard.tsx    # Carte produit
+    ProductSkeleton.tsx
+    Filters.tsx        # Filtres par catégorie/tags
+    ImageGallery.tsx   # Galerie avec zoom
+    Layout.tsx
+  /pages
+    Home.tsx           # Hero + Nouveautés + Catégories
+    CategoryPage.tsx   # Liste avec filtres + tri
+    ProductPage.tsx    # Détail + galerie + produits associés
+    SearchPage.tsx     # Recherche globale
+    NotFound.tsx       # 404 personnalisée
+  /lib
+    api.ts             # Adaptateur API/Mock
+  /types
+    index.ts           # Types TypeScript
+```
 
-This project is built with:
+## ⚙️ Configuration
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Variables d'environnement
 
-## How can I deploy this project?
+Créez un fichier `.env` à la racine (voir `.env.example`) :
 
-Simply open [Lovable](https://lovable.dev/projects/9c7e9c92-0595-4138-888b-dd1d3217ad9f) and click on Share -> Publish.
+```env
+# Mode mock (true) ou API externe (false)
+VITE_USE_MOCK=true
 
-## Can I connect a custom domain to my Lovable project?
+# URL de l'API REST (si USE_MOCK=false)
+VITE_API_BASE_URL=""
+```
 
-Yes, you can!
+### Basculer entre Mock et API
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+**Mode Mock (par défaut)** : Les données sont chargées depuis `/data/local/*.json`
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+**Mode API** : 
+1. Définissez `VITE_USE_MOCK=false`
+2. Configurez `VITE_API_BASE_URL` avec l'URL de votre API
+3. L'API doit exposer :
+   - `GET /api/v1/categories`
+   - `GET /api/v1/products` (avec params : search, category, tags, visible, featured, page, per_page)
+   - `GET /api/v1/products/{slug}`
+
+## 🎨 Fonctionnalités
+
+### Pages
+
+- **Accueil** : Hero, produits nouveautés (featured), grille de catégories
+- **Catégorie** : Liste avec filtres latéraux (catégories, tags), tri (alphabétique, récent), pagination
+- **Produit** : Galerie d'images avec zoom, description, caractéristiques, tags, partage, produits associés
+- **Recherche** : Recherche globale sur nom + tags
+- **404** : Page d'erreur avec recherche et retour accueil
+
+### UX/Accessibilité
+
+- Responsive mobile-first
+- Navigation clavier complète
+- Alt text sur toutes les images
+- Skeletons de chargement
+- Micro-interactions (hover, focus)
+- Transitions fluides
+
+### SEO
+
+- Meta tags par page (title, description)
+- Open Graph configuré
+- Sitemap `/public/sitemap.xml`
+- Robots.txt présent
+- Images lazy-load
+- Structure sémantique HTML5
+
+## 🏗️ Technologies
+
+- **React 18** + TypeScript
+- **Vite** pour le build
+- **React Router** pour le routing
+- **Tailwind CSS** avec design system personnalisé
+- **Shadcn UI** pour les composants
+- **Lucide React** pour les icônes
+
+## 📊 Données
+
+### Catégories (6)
+
+1. Éclairage
+2. Jantes & Enjoliveurs
+3. Sièges & Housses
+4. Volants & Commandes
+5. Carrosserie & Stickers
+6. Intérieur & Rangement
+
+### Produits (23)
+
+Chaque produit contient :
+- Images (avec cover)
+- Description courte/longue
+- Catégories liées
+- Tags (couleur, matière, style)
+- Specs techniques
+- Flags `isVisible` et `isFeatured`
+
+## 🧪 Tests
+
+```bash
+npm run test
+```
+
+Un test basique de rendu de la liste de produits est inclus.
+
+## 📦 Scripts disponibles
+
+- `npm run dev` : Serveur de développement
+- `npm run build` : Build de production
+- `npm run preview` : Prévisualiser le build
+- `npm run lint` : Linter ESLint
+- `npm run test` : Lancer les tests
+
+## 🌐 Déploiement
+
+Le site peut être déployé sur n'importe quel hébergeur statique :
+- Netlify
+- Vercel
+- GitHub Pages
+- etc.
+
+Assurez-vous de configurer les redirections pour le routing côté client (SPA).
+
+## 📄 Licence
+
+Projet personnel © 2025 EL Bouch Auto
+
+---
+
+**Note** : Ce catalogue est conçu sans système de prix, panier ou paiement. Pour ajouter ces fonctionnalités, il faudra intégrer un backend et un système de e-commerce.

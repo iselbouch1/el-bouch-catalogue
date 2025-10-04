@@ -1,0 +1,577 @@
+[
+  {
+    "id": "1",
+    "name": "Jantes Chrome LED Sport",
+    "slug": "jantes-chrome-led-sport",
+    "shortDescription": "Jantes chromées haute brillance avec système LED intégré",
+    "description": "Ces jantes sport chromées apportent une touche d'élégance et de modernité à votre véhicule. Équipées d'un système LED intégré pour un effet visuel spectaculaire de nuit.",
+    "categoryIds": ["2"],
+    "tags": ["chrome", "LED", "sport", "luxe"],
+    "isVisible": true,
+    "isFeatured": true,
+    "sortOrder": 1,
+    "images": [
+      {
+        "url": "/images/jantes-chrome-led.jpg",
+        "alt": "Jantes Chrome LED Sport",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "matiere": "Aluminium chromé",
+      "diametre": "17-22 pouces",
+      "compatibilite": "Universelle",
+      "garantie": "2 ans"
+    }
+  },
+  {
+    "id": "2",
+    "name": "Siège Cuir Sport Racing",
+    "slug": "siege-cuir-sport-racing",
+    "shortDescription": "Siège baquet cuir noir avec surpiqûres rouges",
+    "description": "Siège sport haute performance en cuir véritable avec surpiqûres contrastantes. Design ergonomique pour un maintien optimal lors de la conduite sportive.",
+    "categoryIds": ["3"],
+    "tags": ["cuir", "noir", "rouge", "sport", "racing"],
+    "isVisible": true,
+    "isFeatured": true,
+    "sortOrder": 2,
+    "images": [
+      {
+        "url": "/images/siege-cuir-sport.jpg",
+        "alt": "Siège Cuir Sport Racing",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "matiere": "Cuir véritable",
+      "couleur": "Noir avec surpiqûres rouges",
+      "reglages": "Multiple positions",
+      "poids": "12 kg"
+    }
+  },
+  {
+    "id": "3",
+    "name": "Bande LED Strip Éclairage",
+    "slug": "bande-led-strip-eclairage",
+    "shortDescription": "Kit d'éclairage LED flexible pour phares et intérieur",
+    "description": "Bande LED ultra-flexible pour personnaliser l'éclairage de vos phares ou de l'habitacle. Effet lumineux moderne et élégant.",
+    "categoryIds": ["1"],
+    "tags": ["LED", "bleu", "blanc", "flexible"],
+    "isVisible": true,
+    "isFeatured": true,
+    "sortOrder": 3,
+    "images": [
+      {
+        "url": "/images/eclairage-led-strip.jpg",
+        "alt": "Bande LED Strip Éclairage",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "longueur": "60-120 cm",
+      "couleurs": "Multicolore RGB",
+      "voltage": "12V",
+      "resistance": "Étanche IP67"
+    }
+  },
+  {
+    "id": "4",
+    "name": "Volant Carbone Racing Edition",
+    "slug": "volant-carbone-racing-edition",
+    "shortDescription": "Volant sport en fibre de carbone avec poignées cuir rouge",
+    "description": "Volant racing haute performance en fibre de carbone authentique. Poignées en cuir rouge pour une prise en main optimale.",
+    "categoryIds": ["4"],
+    "tags": ["carbone", "cuir", "rouge", "racing", "sport"],
+    "isVisible": true,
+    "isFeatured": true,
+    "sortOrder": 4,
+    "images": [
+      {
+        "url": "/images/volant-carbone-racing.jpg",
+        "alt": "Volant Carbone Racing Edition",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "diametre": "350 mm",
+      "matiere": "Fibre de carbone",
+      "poignees": "Cuir véritable rouge",
+      "compatibilite": "Universelle avec adaptateur"
+    }
+  },
+  {
+    "id": "5",
+    "name": "Capot Racing Stripes",
+    "slug": "capot-racing-stripes",
+    "shortDescription": "Kit de bandes racing pour capot, finition mate",
+    "description": "Transformez l'apparence de votre véhicule avec ces bandes racing professionnelles. Finition mate élégante et installation facile.",
+    "categoryIds": ["5"],
+    "tags": ["noir mat", "rouge", "racing", "sticker"],
+    "isVisible": true,
+    "isFeatured": true,
+    "sortOrder": 5,
+    "images": [
+      {
+        "url": "/images/capot-racing-stripes.jpg",
+        "alt": "Capot Racing Stripes",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "materiau": "Vinyl haute qualité",
+      "finition": "Mate",
+      "largeur": "20 cm par bande",
+      "longueur": "150 cm"
+    }
+  },
+  {
+    "id": "6",
+    "name": "Kit LED Ambiance Intérieur",
+    "slug": "kit-led-ambiance-interieur",
+    "shortDescription": "Système d'éclairage d'ambiance RGB pour habitacle",
+    "description": "Créez une ambiance unique dans votre habitacle avec ce kit LED RGB complet. Contrôle via télécommande, multiples modes et couleurs.",
+    "categoryIds": ["1", "6"],
+    "tags": ["LED", "RGB", "ambiance", "multicolore"],
+    "isVisible": true,
+    "isFeatured": true,
+    "sortOrder": 6,
+    "images": [
+      {
+        "url": "/images/kit-led-ambiance.jpg",
+        "alt": "Kit LED Ambiance Intérieur",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "bandes": "4 x 30 cm",
+      "couleurs": "16 millions (RGB)",
+      "controle": "Télécommande IR",
+      "modes": "12 modes préprogrammés"
+    }
+  },
+  {
+    "id": "7",
+    "name": "Emblème Chrome Premium",
+    "slug": "embleme-chrome-premium",
+    "shortDescription": "Badge logo chromé haute brillance",
+    "description": "Emblème chromé premium pour personnaliser votre véhicule. Finition miroir exceptionnelle et fixation adhésive ultra-résistante.",
+    "categoryIds": ["5"],
+    "tags": ["chrome", "luxe", "badge"],
+    "isVisible": true,
+    "isFeatured": false,
+    "sortOrder": 7,
+    "images": [
+      {
+        "url": "/images/embleme-chrome.jpg",
+        "alt": "Emblème Chrome Premium",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "matiere": "ABS chromé",
+      "taille": "10 x 3 cm",
+      "fixation": "Adhésif 3M",
+      "finition": "Miroir"
+    }
+  },
+  {
+    "id": "8",
+    "name": "Tapis Caoutchouc Sport",
+    "slug": "tapis-caoutchouc-sport",
+    "shortDescription": "Tapis de sol tout-temps avec bordures rouges",
+    "description": "Ensemble de tapis de sol en caoutchouc haute résistance. Protection optimale contre la saleté et l'humidité.",
+    "categoryIds": ["6"],
+    "tags": ["noir", "rouge", "caoutchouc", "sport"],
+    "isVisible": true,
+    "isFeatured": false,
+    "sortOrder": 8,
+    "images": [
+      {
+        "url": "/images/tapis-caoutchouc-sport.jpg",
+        "alt": "Tapis Caoutchouc Sport",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "matiere": "Caoutchouc TPE",
+      "pieces": "4 tapis (avant + arrière)",
+      "nettoyage": "Lavable à l'eau",
+      "antiderapant": "Oui"
+    }
+  },
+  {
+    "id": "9",
+    "name": "Pommeau Vitesse Carbone",
+    "slug": "pommeau-vitesse-carbone",
+    "shortDescription": "Levier de vitesse sport en fibre de carbone",
+    "description": "Pommeau de vitesse racing en fibre de carbone véritable avec insert cuir. Look sportif et prise en main agréable.",
+    "categoryIds": ["4"],
+    "tags": ["carbone", "cuir", "sport"],
+    "isVisible": true,
+    "isFeatured": false,
+    "sortOrder": 9,
+    "images": [
+      {
+        "url": "/images/pommeau-vitesse-carbone.jpg",
+        "alt": "Pommeau Vitesse Carbone",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "matiere": "Fibre de carbone + cuir",
+      "hauteur": "6 cm",
+      "filetage": "Universel M10x1.5",
+      "poids": "120g"
+    }
+  },
+  {
+    "id": "10",
+    "name": "Pédales Sport Aluminium",
+    "slug": "pedales-sport-aluminium",
+    "shortDescription": "Kit pédalier sportif aluminium avec grip antidérapant",
+    "description": "Transformez votre pédalier avec ce kit sport en aluminium anodisé. Grip en caoutchouc pour une adhérence maximale.",
+    "categoryIds": ["4"],
+    "tags": ["aluminium", "sport", "antidérapant"],
+    "isVisible": true,
+    "isFeatured": true,
+    "sortOrder": 10,
+    "images": [
+      {
+        "url": "/images/pedales-sport-alu.jpg",
+        "alt": "Pédales Sport Aluminium",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "matiere": "Aluminium anodisé",
+      "pieces": "3 pédales",
+      "grip": "Caoutchouc antidérapant",
+      "fixation": "Universelle"
+    }
+  },
+  {
+    "id": "11",
+    "name": "Échappement Chrome Double Sortie",
+    "slug": "echappement-chrome-double-sortie",
+    "shortDescription": "Embouts d'échappement chromés double sortie",
+    "description": "Embouts d'échappement sportifs en acier inoxydable chromé. Double sortie pour un look agressif et une sonorité améliorée.",
+    "categoryIds": ["5"],
+    "tags": ["chrome", "sport", "double sortie"],
+    "isVisible": true,
+    "isFeatured": true,
+    "sortOrder": 11,
+    "images": [
+      {
+        "url": "/images/echappement-chrome.jpg",
+        "alt": "Échappement Chrome Double Sortie",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "matiere": "Acier inoxydable 304",
+      "diametre": "76 mm par sortie",
+      "finition": "Poli miroir",
+      "installation": "Pince universelle"
+    }
+  },
+  {
+    "id": "12",
+    "name": "Film Teinté Vitres Premium",
+    "slug": "film-teinte-vitres-premium",
+    "shortDescription": "Film solaire teinté haute performance",
+    "description": "Film de protection solaire haute qualité. Réduit la chaleur et les UV tout en ajoutant une touche d'intimité.",
+    "categoryIds": ["5"],
+    "tags": ["noir", "protection UV", "intimité"],
+    "isVisible": true,
+    "isFeatured": false,
+    "sortOrder": 12,
+    "images": [
+      {
+        "url": "/images/film-teinte-vitres.jpg",
+        "alt": "Film Teinté Vitres Premium",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "teinte": "5% - 70% (au choix)",
+      "protection": "99% UV",
+      "largeur": "152 cm",
+      "garantie": "5 ans"
+    }
+  },
+  {
+    "id": "13",
+    "name": "Housses Sièges Racing Pro",
+    "slug": "housses-sieges-racing-pro",
+    "shortDescription": "Housses de siège sport respirantes",
+    "description": "Housses de protection sport en tissu technique respirant. Design racing avec accents rouges, installation facile.",
+    "categoryIds": ["3"],
+    "tags": ["noir", "rouge", "racing", "respirant"],
+    "isVisible": true,
+    "isFeatured": false,
+    "sortOrder": 13,
+    "images": [
+      {
+        "url": "/images/housses-siege-racing.jpg",
+        "alt": "Housses Sièges Racing Pro",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "matiere": "Polyester technique",
+      "pieces": "Set complet (avant + arrière)",
+      "lavage": "Machine 30°C",
+      "elastique": "Ajustement universel"
+    }
+  },
+  {
+    "id": "14",
+    "name": "Néon Soubassement RGB",
+    "slug": "neon-soubassement-rgb",
+    "shortDescription": "Kit d'éclairage LED sous caisse multicolore",
+    "description": "Transformez votre véhicule la nuit avec ce système d'éclairage sous caisse. Effet néon RGB contrôlable via application smartphone.",
+    "categoryIds": ["1"],
+    "tags": ["LED", "RGB", "néon", "bluetooth"],
+    "isVisible": true,
+    "isFeatured": true,
+    "sortOrder": 14,
+    "images": [
+      {
+        "url": "/images/neon-soubassement.jpg",
+        "alt": "Néon Soubassement RGB",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "tubes": "4 x 90 cm",
+      "couleurs": "RGB 16 millions",
+      "controle": "App Bluetooth",
+      "resistance": "Étanche IP68"
+    }
+  },
+  {
+    "id": "15",
+    "name": "Organiseur Coffre Multi-Compartiments",
+    "slug": "organiseur-coffre-multi-compartiments",
+    "shortDescription": "Rangement modulable pour coffre",
+    "description": "Organiseur de coffre pliable avec compartiments ajustables. Maintient vos affaires en place et optimise l'espace de rangement.",
+    "categoryIds": ["6"],
+    "tags": ["noir", "rangement", "pliable"],
+    "isVisible": true,
+    "isFeatured": false,
+    "sortOrder": 15,
+    "images": [
+      {
+        "url": "/images/organiseur-coffre.jpg",
+        "alt": "Organiseur Coffre Multi-Compartiments",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "dimensions": "50 x 32 x 26 cm",
+      "compartiments": "3 ajustables",
+      "matiere": "Polyester Oxford 600D",
+      "capacite": "52 litres"
+    }
+  },
+  {
+    "id": "16",
+    "name": "Coques Rétroviseur Carbone",
+    "slug": "coques-retroviseur-carbone",
+    "shortDescription": "Coques de rétroviseur effet carbone brillant",
+    "description": "Coques de remplacement pour rétroviseurs avec finition carbone haute brillance. Installation rapide sans outils.",
+    "categoryIds": ["5"],
+    "tags": ["carbone", "sport", "brillant"],
+    "isVisible": true,
+    "isFeatured": false,
+    "sortOrder": 16,
+    "images": [
+      {
+        "url": "/images/coques-retroviseur-carbone.jpg",
+        "alt": "Coques Rétroviseur Carbone",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "matiere": "ABS effet carbone",
+      "finition": "Vernis brillant",
+      "installation": "Clip-on sans outils",
+      "compatibilite": "Voir liste véhicules"
+    }
+  },
+  {
+    "id": "17",
+    "name": "Seuils de Porte LED Illuminés",
+    "slug": "seuils-porte-led-illumines",
+    "shortDescription": "Protections de seuils avec éclairage LED bleu",
+    "description": "Seuils de porte en acier inoxydable avec éclairage LED intégré. Protection contre les rayures et effet visuel premium.",
+    "categoryIds": ["5", "1"],
+    "tags": ["LED", "bleu", "chrome", "protection"],
+    "isVisible": true,
+    "isFeatured": true,
+    "sortOrder": 17,
+    "images": [
+      {
+        "url": "/images/seuils-porte-led.jpg",
+        "alt": "Seuils de Porte LED Illuminés",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "matiere": "Inox brossé + LED",
+      "couleur": "Bleu",
+      "pieces": "4 (portes avant + arrière)",
+      "alimentation": "12V"
+    }
+  },
+  {
+    "id": "18",
+    "name": "Aileron Sport Carbone GT",
+    "slug": "aileron-sport-carbone-gt",
+    "shortDescription": "Aileron arrière style GT en fibre de carbone",
+    "description": "Aileron de coffre racing en fibre de carbone véritable. Design aérodynamique pour améliorer la stabilité à haute vitesse.",
+    "categoryIds": ["5"],
+    "tags": ["carbone", "sport", "GT", "aérodynamique"],
+    "isVisible": true,
+    "isFeatured": true,
+    "sortOrder": 18,
+    "images": [
+      {
+        "url": "/images/aileron-sport-carbone.jpg",
+        "alt": "Aileron Sport Carbone GT",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "matiere": "Fibre de carbone",
+      "dimensions": "140 x 40 x 8 cm",
+      "fixation": "Adhésif + visserie",
+      "poids": "2.5 kg"
+    }
+  },
+  {
+    "id": "19",
+    "name": "Covering Métallisé Rouge",
+    "slug": "covering-metallise-rouge",
+    "shortDescription": "Film vinyl chrome rouge métallisé",
+    "description": "Film adhésif haute qualité pour covering complet. Finition chrome rouge spectaculaire, protection de la peinture d'origine.",
+    "categoryIds": ["5"],
+    "tags": ["rouge", "chrome", "métallisé", "covering"],
+    "isVisible": true,
+    "isFeatured": false,
+    "sortOrder": 19,
+    "images": [
+      {
+        "url": "/images/covering-metal-rouge.jpg",
+        "alt": "Covering Métallisé Rouge",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "finition": "Chrome métallisé",
+      "largeur": "152 cm",
+      "longueur": "Au mètre",
+      "garantie": "3 ans"
+    }
+  },
+  {
+    "id": "20",
+    "name": "Support Téléphone Magnétique",
+    "slug": "support-telephone-magnetique",
+    "shortDescription": "Support smartphone aimanté pour tableau de bord",
+    "description": "Support téléphone universel à fixation magnétique. Rotation 360°, installation simple sur toute surface plane.",
+    "categoryIds": ["6"],
+    "tags": ["noir", "magnétique", "pratique"],
+    "isVisible": true,
+    "isFeatured": false,
+    "sortOrder": 20,
+    "images": [
+      {
+        "url": "/images/support-telephone-magnetique.jpg",
+        "alt": "Support Téléphone Magnétique",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "type": "Magnétique",
+      "rotation": "360 degrés",
+      "fixation": "Adhésif 3M",
+      "compatibilite": "Tous smartphones"
+    }
+  },
+  {
+    "id": "21",
+    "name": "Coques Étrier Frein Racing",
+    "slug": "coques-etrier-frein-racing",
+    "shortDescription": "Coques décoratives pour étriers de frein rouges",
+    "description": "Ensemble de coques décoratives pour étriers de frein. Effet racing professionnel sans modification mécanique.",
+    "categoryIds": ["2"],
+    "tags": ["rouge", "racing", "sport"],
+    "isVisible": true,
+    "isFeatured": false,
+    "sortOrder": 21,
+    "images": [
+      {
+        "url": "/images/coques-etrier-frein-rouge.jpg",
+        "alt": "Coques Étrier Frein Racing",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "couleur": "Rouge avec logo",
+      "pieces": "4 coques (avant + arrière)",
+      "matiere": "ABS haute température",
+      "installation": "Sans démontage des roues"
+    }
+  },
+  {
+    "id": "22",
+    "name": "Désodorisant Luxe Premium",
+    "slug": "desodorisant-luxe-premium",
+    "shortDescription": "Parfum d'ambiance longue durée design élégant",
+    "description": "Désodorisant haut de gamme avec design élégant. Diffusion longue durée, fragrances premium inspirées de la parfumerie de luxe.",
+    "categoryIds": ["6"],
+    "tags": ["luxe", "parfum", "élégant"],
+    "isVisible": true,
+    "isFeatured": false,
+    "sortOrder": 22,
+    "images": [
+      {
+        "url": "/images/desodorisant-luxe.jpg",
+        "alt": "Désodorisant Luxe Premium",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "duree": "45-60 jours",
+      "fragrances": "8 au choix",
+      "design": "Minimaliste élégant",
+      "fixation": "Clip aération"
+    }
+  },
+  {
+    "id": "23",
+    "name": "Cadre Plaque LED Lumineux",
+    "slug": "cadre-plaque-led-lumineux",
+    "shortDescription": "Encadrement de plaque minéralogique chromé avec LED",
+    "description": "Cadre de plaque d'immatriculation en chrome avec éclairage LED blanc intégré. Look premium et meilleure visibilité.",
+    "categoryIds": ["5", "1"],
+    "tags": ["chrome", "LED", "blanc", "luxe"],
+    "isVisible": true,
+    "isFeatured": false,
+    "sortOrder": 23,
+    "images": [
+      {
+        "url": "/images/cadre-plaque-led.jpg",
+        "alt": "Cadre Plaque LED Lumineux",
+        "isCover": true
+      }
+    ],
+    "specs": {
+      "matiere": "ABS chromé",
+      "LED": "12 LEDs blanches",
+      "alimentation": "12V",
+      "montage": "Universel"
+    }
+  }
+]
