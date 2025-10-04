@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" th:replace="admin/layout :: body">
+<body>
+<section>
+  <h2 th:text="${category.id} == null ? 'Nouvelle catégorie' : 'Éditer la catégorie'"></h2>
+  <form class="form" method="post" th:action="${category.id} == null ? @{/admin/categories} : @{'/admin/categories/' + ${category.id}}">
+    <label>Nom
+      <input type="text" name="name" th:value="${category.name}" required />
+    </label>
+    <label>Slug
+      <input type="text" name="slug" th:value="${category.slug}" />
+    </label>
+    <label>Parent ID (optionnel)
+      <input type="text" name="parentId" th:value="${category.parentId}" />
+    </label>
+    <button type="submit">Enregistrer</button>
+  </form>
+</section>
+</body>
+</html>

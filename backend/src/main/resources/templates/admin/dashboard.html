@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" th:replace="admin/layout :: body">
+<body>
+<section>
+  <h2>Tableau de bord</h2>
+  <div class="grid">
+    <div class="stat">Produits: <span th:text="${productsCount}">0</span></div>
+    <div class="stat">Catégories: <span th:text="${categoriesCount}">0</span></div>
+    <div class="stat">Tags: <span th:text="${tagsCount}">0</span></div>
+  </div>
+</section>
+</body>
+</html>

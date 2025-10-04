@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" th:replace="admin/layout :: body">
+<body>
+<section>
+  <h2 th:text="${dto.id} == null ? 'Nouveau produit' : 'Éditer le produit'"></h2>
+  <form class="form" method="post" th:action="${dto.id} == null ? @{/admin/products} : @{'/admin/products/' + ${dto.id}}">
+    <input type="hidden" name="id" th:value="${dto.id}" />
+    <label>Nom
+      <input type="text" name="name" th:value="${dto.name}" required />
+    </label>
+    <label>Slug (optionnel)
+      <input type="text" name="slug" th:value="${dto.slug}" />
+    </label>
+    <label>Visible
+      <input type="checkbox" name="isVisible" th:checked="${dto.isVisible}" />
+    </label>
+    <label>Mis en avant
+      <input type="checkbox" name="isFeatured" th:checked="${dto.isFeatured}" />
+    </label>
+    <label>Ordre de tri
+      <input type="number" name="sortOrder" th:value="${dto.sortOrder}" />
+    </label>
+    <label>Résumé
+      <textarea name="shortDescription" th:text="${dto.shortDescription}"></textarea>
+    </label>
+    <label>Description
+      <textarea name="description" th:text="${dto.description}"></textarea>
+    </label>
+    <label>Catégories
+      <select name="categoryIds" multiple>
+        <option th:each="c : ${categories}" th:value="${c.id}" th:selected="${#lists.contains(dto.categoryIds, c.id.toString())}" th:text="${c.name}"></option>
+      </select>
+    </label>
+    <label>Tags (slugs séparés par des virgules)
+      <input type="text" name="tags" th:value="${#strings.listJoin(dto.tags, ',')}" />
+    </label>
+    <label>Spécifications (JSON)
+      <textarea name="specs" placeholder='{"matiere":"cuir"}'>
+        <span th:text="${#maps.size(dto.specs) > 0 ? dto.specs : '{\'matiere\':\'cuir\'}'}"></span>
+      </textarea>
+    </label>
+    <button type="submit">Enregistrer</button>
+  </form>
+
+  <div th:if="${product != null}">
+    <h3>Images</h3>
+    <form th:action="@{'/admin/products/' + ${product.id} + '/images'}" method="post" enctype="multipart/form-data">
+      <input type="file" name="file" required />
+      <label><input type="checkbox" name="cover" /> Définir comme cover</label>
+      <button type="submit">Uploader</button>
+    </form>
+    <div class="gallery">
+      <div class="img-card" th:each="img : ${product.images}">
+        <img th:src="${img.url}" th:alt="${img.alt}" />
+        <div>
+          <span th:text="${img.cover} ? 'Cover' : ''"></span>
+          <form th:action="@{'/admin/products/' + ${product.id} + '/images/' + ${img.id} + '/cover'}" method="post" style="display:inline">
+            <button type="submit">Cover</button>
+          </form>
+          <form th:action="@{'/admin/products/' + ${product.id} + '/images/' + ${img.id} + '/delete'}" method="post" style="display:inline">
+            <button type="submit" class="danger">Supprimer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

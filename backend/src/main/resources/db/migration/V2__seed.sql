@@ -1,0 +1,1 @@
+-- Seed via Java DataLoader for dev profile. Keep this file for Flyway sequence.
