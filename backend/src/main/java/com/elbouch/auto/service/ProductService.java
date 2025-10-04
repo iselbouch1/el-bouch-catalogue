@@ -47,27 +47,13 @@ public class ProductService {
                 .and(ProductSpecifications.featured(featured));
         Sort sort = Sort.by(Sort.Order.asc("sortOrder").nullsLast(), Sort.Order.desc("createdAt"));
         Pageable pageable = PageRequest.of(Math.max(page - 1, 0), Math.min(perPage, 50), sort);
-        Page<Product> result = productRepository.findAll(spec, pageable);
-        // Force eager loading of collections
-        result.getContent().forEach(p -> {
-            p.getCategories().size();
-            p.getTags().size();
-            p.getImages().size();
-        });
-        return result;
+        return productRepository.findAllWithAll(spec, pageable);
     }
 
     @Cacheable(value = "productBySlug", key = "#slug")
     @Transactional(readOnly = true)
     public Optional<Product> findBySlug(String slug) {
-        Optional<Product> product = productRepository.findBySlug(slug);
-        // Force eager loading of collections
-        product.ifPresent(p -> {
-            p.getCategories().size();
-            p.getTags().size();
-            p.getImages().size();
-        });
-        return product;
+        return productRepository.findBySlugWithAll(slug);
     }
 
     @Transactional(readOnly = true)
@@ -77,13 +63,7 @@ public class ProductService {
         Specification<Product> spec = Specification.where(ProductSpecifications.tagsCsv(String.join(",", tagSlugs)))
                 .or(ProductSpecifications.categorySlug(catSlugs.stream().findFirst().orElse(null)))
                 .and((root, query, cb) -> cb.notEqual(root.get("id"), ref.getId()));
-        Page<Product> page = productRepository.findAll(spec, PageRequest.of(0, limit));
-        // Force eager loading of collections
-        page.getContent().forEach(p -> {
-            p.getCategories().size();
-            p.getTags().size();
-            p.getImages().size();
-        });
+        Page<Product> page = productRepository.findAllWithAll(spec, PageRequest.of(0, limit));
         return page.getContent();
     }
 
@@ -109,7 +89,7 @@ public class ProductService {
     @Transactional
     @CacheEvict(value = {"productBySlug", "categories"}, allEntries = true)
     public Product update(UUID id, ProductDto dto) {
-        Product p = productRepository.findById(id).orElseThrow();
+        Product p = productRepository.findByIdWithAll(id).orElseThrow();
         apply(dto, p);
         ensureSingleCover(p);
         p = productRepository.save(p);

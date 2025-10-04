@@ -41,14 +41,14 @@ public class SecurityConfig {
             )
             .headers(h -> h
                 .httpStrictTransportSecurity(hsts -> hsts.includeSubDomains(true))
-                .xssProtection(xss -> xss.disable())
-                .contentTypeOptions(Customizer.withDefaults())
+                .contentSecurityPolicy(csp -> csp.policyDirectives("default-src 'self'; img-src 'self' data: blob:; script-src 'self'; style-src 'self' 'unsafe-inline'"))
                 .frameOptions(f -> f.sameOrigin())
+                .contentTypeOptions(Customizer.withDefaults())
             )
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
-                .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/actuator/health").permitAll()
-                .requestMatchers("/files/**", "/assets/**", "/admin/login", "/css/**", "/js/**").permitAll()
+                .requestMatchers("/", "/shop", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/actuator/health").permitAll()
+                .requestMatchers("/uploads/**", "/files/**", "/assets/**", "/admin/login", "/css/**", "/js/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PUT, "/api/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.PATCH, "/api/**").hasRole("ADMIN")

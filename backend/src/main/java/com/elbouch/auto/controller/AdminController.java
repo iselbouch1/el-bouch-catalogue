@@ -72,8 +72,9 @@ public class AdminController {
     }
 
     @GetMapping("/products/{id}/edit")
+    @org.springframework.transaction.annotation.Transactional(readOnly = true)
     public String editProduct(@PathVariable UUID id, Model model) {
-        Product p = productRepository.findById(id).orElseThrow();
+        Product p = productRepository.findByIdWithAll(id).orElseThrow();
         model.addAttribute("dto", Mapper.toDto(p));
         model.addAttribute("product", p);
         model.addAttribute("categories", categoryRepository.findAll());
@@ -95,15 +96,18 @@ public class AdminController {
     }
 
     @PostMapping("/products/{id}/images")
+    @org.springframework.transaction.annotation.Transactional
     public String uploadImage(@PathVariable UUID id, @RequestParam("file") MultipartFile file, @RequestParam(name = "cover", defaultValue = "false") boolean cover) throws IOException {
-        Product p = productRepository.findById(id).orElseThrow();
+        Product p = productRepository.findByIdWithAll(id).orElseThrow();
         imageService.store(p, file, cover);
+        productService.broadcastImageUpdate(id);
         return "redirect:/admin/products/" + id + "/edit";
     }
 
     @PostMapping("/products/{id}/images/{imageId}/cover")
+    @org.springframework.transaction.annotation.Transactional
     public String setCover(@PathVariable UUID id, @PathVariable UUID imageId) {
-        Product p = productRepository.findById(id).orElseThrow();
+        Product p = productRepository.findByIdWithAll(id).orElseThrow();
         for (Image img : p.getImages()) { img.setCover(img.getId().equals(imageId)); }
         productRepository.save(p);
         productService.broadcastImageUpdate(id);
@@ -111,8 +115,10 @@ public class AdminController {
     }
 
     @PostMapping("/products/{id}/images/{imageId}/delete")
+    @org.springframework.transaction.annotation.Transactional
     public String deleteImage(@PathVariable UUID id, @PathVariable UUID imageId) {
-        imageRepository.deleteById(imageId);
+        Image img = imageRepository.findById(imageId).orElseThrow();
+        imageService.deleteImage(img);
         productService.broadcastImageUpdate(id);
         return "redirect:/admin/products/" + id + "/edit";
     }

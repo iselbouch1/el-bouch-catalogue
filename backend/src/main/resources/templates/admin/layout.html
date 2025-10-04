@@ -4,21 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Admin - EL Bouch Auto</title>
-  <link rel="stylesheet" th:href="@{/admin.css}" />
+  <link rel="stylesheet" href="/css/admin.css" />
 </head>
 <body>
+<div class="sse-banner">
+  <span class="sse-dot"></span>
+  <span>🔄 Modifications diffusées en temps réel au site visiteur</span>
+</div>
+
 <header class="topbar">
-  <h1><a th:href="@{/admin}">EL Bouch Auto - Admin</a></h1>
-  <nav>
-    <a th:href="@{/admin/products}">Produits</a>
-    <a th:href="@{/admin/categories}">Catégories</a>
-    <a th:href="@{/admin/tags}">Tags</a>
-    <a th:href="@{/admin/logout}">Déconnexion</a>
+  <div class="topbar-brand">
+    <h1><a th:href="@{/admin}">🚗 EL Bouch Auto</a></h1>
+    <span class="admin-badge">Admin</span>
+  </div>
+  <nav class="topbar-nav">
+    <a th:href="@{/admin}" class="nav-link">📊 Dashboard</a>
+    <a th:href="@{/admin/products}" class="nav-link">📦 Produits</a>
+    <a th:href="@{/admin/categories}" class="nav-link">🏷️ Catégories</a>
+    <a th:href="@{/admin/tags}" class="nav-link">🔖 Tags</a>
+    <a th:href="@{/admin/logout}" class="nav-link logout">🚪 Déconnexion</a>
   </nav>
 </header>
+
 <main class="container">
   <div layout:fragment="content"></div>
 </main>
-<script th:src="@{/admin.js}"></script>
+
+<script src="/js/admin.js"></script>
 </body>
 </html>

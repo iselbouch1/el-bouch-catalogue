@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EL Bouch Auto - Catalogue</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        header h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .sse-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.75rem 2rem;
+            text-align: center;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .sse-dot {
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .intro h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .intro p {
+            color: var(--text-muted);
+            font-size: 1.125rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            background: var(--bg);
+        }
+
+        .product-content {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .product-description {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .product-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: var(--bg);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .empty-state svg {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            opacity: 0.3;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="sse-banner">
+        <span class="sse-dot"></span>
+        <span>🔄 Mise à jour en temps réel activée</span>
+    </div>
+    
+    <header>
+        <h1>🚗 EL Bouch Auto</h1>
+    </header>
+
+    <div class="container">
+        <div class="intro">
+            <h2>Notre Catalogue</h2>
+            <p>Découvrez notre sélection de produits automobiles</p>
+        </div>
+
+        <div class="products-grid" th:if="${!products.isEmpty()}">
+            <div class="product-card" th:each="product : ${products}">
+                <img 
+                    th:if="${!product.images().isEmpty()}" 
+                    th:src="${product.images().get(0).url()}" 
+                    th:alt="${product.images().get(0).alt()}"
+                    class="product-image"
+                />
+                <div th:if="${product.images().isEmpty()}" class="product-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                
+                <div class="product-content">
+                    <h3 class="product-name" th:text="${product.name()}">Product Name</h3>
+                    <p class="product-description" th:text="${product.shortDescription() != null ? product.shortDescription() : 'Aucune description disponible'}">Description</p>
+                    
+                    <div class="product-tags" th:if="${!product.tags().isEmpty()}">
+                        <span class="tag" th:each="tag : ${product.tags()}" th:text="${tag}">tag</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="empty-state" th:if="${products.isEmpty()}">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+            </svg>
+            <h3>Aucun produit disponible</h3>
+            <p>Les produits seront bientôt ajoutés au catalogue</p>
+        </div>
+    </div>
+
+    <script>
+        // SSE connection for real-time updates
+        const evtSource = new EventSource('http://localhost:8082/api/v1/events/products');
+        
+        evtSource.addEventListener('product', function(event) {
+            console.log('Product event received:', event.data);
+            // Reload page on any product change
+            setTimeout(() => location.reload(), 500);
+        });
+
+        evtSource.onerror = function(err) {
+            console.error('SSE connection error:', err);
+        };
+
+        evtSource.onopen = function() {
+            console.log('✅ SSE connection established');
+        };
+    </script>
+</body>
+</html>
